@@ -35,12 +35,12 @@ public class Teste {
             System.out.println("\n\t (6) Imprimir o veículo de CARGA pela placa");
             System.out.println("\n\t (7) Sair do Sistema");
             
-            try {
+            //try {
                 opcao = Integer.parseInt(leitura.entDados("\n\t Escolha uma opção"));
-            } catch (NumberFormatException e) {
-                System.out.println("Deve ser um número inteiro - Press <ENTER>");
-                leitura.entDados(" ");
-            }
+            //} catch (NumberFormatException e) {
+            //    System.out.println("Deve ser um número inteiro - Press <ENTER>");
+            //    leitura.entDados(" ");
+            //}
             
             switch (opcao) {
                 case 1:
@@ -69,6 +69,34 @@ public class Teste {
                         }
                     }
                     break;
+                    
+                case 2:
+                    for (int i = achaVagoCarga(); i < vetVeiculoCarga.length; i++) {
+                        if (i == -1) {
+                            leitura.entDados("\nVetor de CARGA está cheio! press <ENTER>");
+                            break;
+                        }
+                        
+                        veiculoCarga = new Carga();
+                        vetVeiculoCarga[i] = cadastraVeiculoCarga(veiculoCarga); 
+                        
+                        leitura.entDados("\nVeículo de CARGA armazenado na posição " 
+                                + i + " do vetor - press <ENTER>");
+                        
+                        String respCarga = leitura.entDados("\nDeseja cadastrar outro "
+                                + "veículo de CARGA? <s/n>");
+                        
+                        if (respCarga.equalsIgnoreCase("n")) {
+                            break;
+                        }
+                        
+                        if (achaVagoCarga() == -1) {
+                            leitura.entDados("\nVetor de CARGA está cheio! press <ENTER>");
+                            break;
+                        }
+                    }
+                    break;
+                    
                 case 7:
                     continuar = false;  
                     break;
@@ -112,5 +140,22 @@ public class Teste {
         passeio.getMotor().setPotencia(Integer.parseInt(leitura.entDados("Potência do motor........:")));
         passeio.getMotor().setQtdPist(Integer.parseInt(leitura.entDados("Qtdade de pistão...........:")));
         return passeio;
+    }
+    
+    public static Carga cadastraVeiculoCarga(Carga carga) {
+        System.out.println("===================================");
+        System.out.println("Cadastro de veículos de CARGA");
+        System.out.println("===================================");
+        carga.setCor(leitura.entDados("Cor.............:"));
+        carga.setMarca(leitura.entDados("Marca.........:"));
+        carga.setModelo(leitura.entDados("Modelo.......:"));
+        carga.setPlaca(leitura.entDados("Placa.........:"));
+        carga.setQtdRodas(Integer.parseInt(leitura.entDados("Qtdade de rodas.........:")));
+        carga.setVelocMax(Float.parseFloat(leitura.entDados("Veloc. Máx.........:")));
+        carga.setCargaMax(Integer.parseInt(leitura.entDados("Carga Máx.........:")));
+        carga.setTara(Integer.parseInt(leitura.entDados("Tara.........:")));
+        carga.getMotor().setPotencia(Integer.parseInt(leitura.entDados("Potência do motor.........:")));
+        carga.getMotor().setQtdPist(Integer.parseInt(leitura.entDados("Qtdade de pistão...........:")));
+        return carga;
     }
 }
