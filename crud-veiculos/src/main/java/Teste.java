@@ -96,6 +96,19 @@ public class Teste {
                         }
                     }
                     break;
+
+                case 3:
+                    System.out.println("\nVeículo de PASSEIO - Imprime TODOS os veículos");
+                    System.out.println("=================================================");
+                    for (int i = 0; i < vetVeiculoPasseio.length; i++) {
+                        if (vetVeiculoPasseio[i] != null) {
+                            imprimeVeiculoPasseio(vetVeiculoPasseio[i], i);
+                        } else {
+                            leitura.entDados("\nSem mais veículos de PASSEIO para imprimir - press <ENTER>");
+                        }
+                    }
+                    System.out.println("=================================================");
+                    break;
                     
                 case 7:
                     continuar = false;  
@@ -158,4 +171,19 @@ public class Teste {
         carga.getMotor().setQtdPist(Integer.parseInt(leitura.entDados("Qtdade de pistão...........:")));
         return carga;
     }
+
+    public static void imprimeVeiculoPasseio(Passeio veiculoPasseio, int i) {
+        System.out.println("\nO veículo de PASSEIO armazenado no endereço.......:" + i +" (vetor do vetVeiculoPasseio)");
+        System.out.println("Cor......................: " + veiculoPasseio.getCor());
+        System.out.println("Marca....................: " + veiculoPasseio.getMarca());
+        System.out.println("Placa....................: " + veiculoPasseio.getPlaca());
+        System.out.println("Qtdade de rodas..........: " + veiculoPasseio.getQtdRodas());
+        System.out.println("Veloc. Máx...............: " + veiculoPasseio.getVelocMax());
+        System.out.println("Qtdade de passageiros....: " + veiculoPasseio.getQtdPassageiros());
+        System.out.println("Potência do motor........: " + veiculoPasseio.getMotor().getPotencia());
+        System.out.println("Qtdade de pistão.........: " + veiculoPasseio.getMotor().getQtdPist());
+        System.out.println("Qtdade passag. + qtdade rodas...: " + veiculoPasseio.calcular());
+        
+    }
+
 }
