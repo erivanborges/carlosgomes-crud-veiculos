@@ -10,12 +10,9 @@
 public class Teste {
     
     private static Leitura leitura = new Leitura();
-        
     private static Passeio veiculoPasseio;
     private static Carga veiculoCarga;
-    
-    private static Passeio[] vetVeiculoPasseio = new Passeio[5];
-    private static Carga[] vetVeiculoCarga = new Carga[5];
+    private static BDVeiculos bdveiculos = new BDVeiculos();
     
     public static void main(String[] args) {
         System.out.println("");
@@ -44,14 +41,14 @@ public class Teste {
             
             switch (opcao) {
                 case 1:
-                    for (int i = achaVagoPasseio(); i < vetVeiculoPasseio.length; i++) {
+                    for (int i = bdveiculos.achaVagoPasseio(); i < bdveiculos.getVetVeiculoPasseio().length; i++) {
                         if (i == -1) {
                             leitura.entDados("\nVetor de PASSEIO está cheio! press <ENTER>");
                             break;
                         }
                         
                         veiculoPasseio = new Passeio();
-                        vetVeiculoPasseio[i] = cadastraVeiculoPasseio(veiculoPasseio);
+                        bdveiculos.getVetVeiculoPasseio()[i] = cadastraVeiculoPasseio(veiculoPasseio);
                         
                         leitura.entDados("\nVeículo de PASSEIO armazenado na posição " 
                                 + i + " do vetor - press <ENTER>");
@@ -63,7 +60,7 @@ public class Teste {
                             break;
                         }
                         
-                        if (achaVagoPasseio() == -1) {
+                        if (bdveiculos.achaVagoPasseio() == -1) {
                             leitura.entDados("\nVetor de PASSEIO está cheio! press <ENTER>");
                             break;
                         }
@@ -71,14 +68,14 @@ public class Teste {
                     break;
                     
                 case 2:
-                    for (int i = achaVagoCarga(); i < vetVeiculoCarga.length; i++) {
+                    for (int i = bdveiculos.achaVagoCarga(); i < bdveiculos.getVetVeiculoPasseio().length; i++) {
                         if (i == -1) {
                             leitura.entDados("\nVetor de CARGA está cheio! press <ENTER>");
                             break;
                         }
                         
                         veiculoCarga = new Carga();
-                        vetVeiculoCarga[i] = cadastraVeiculoCarga(veiculoCarga); 
+                        bdveiculos.getVetVeiculoCarga()[i] = cadastraVeiculoCarga(veiculoCarga); 
                         
                         leitura.entDados("\nVeículo de CARGA armazenado na posição " 
                                 + i + " do vetor - press <ENTER>");
@@ -90,7 +87,7 @@ public class Teste {
                             break;
                         }
                         
-                        if (achaVagoCarga() == -1) {
+                        if (bdveiculos.achaVagoCarga() == -1) {
                             leitura.entDados("\nVetor de CARGA está cheio! press <ENTER>");
                             break;
                         }
@@ -100,11 +97,24 @@ public class Teste {
                 case 3:
                     System.out.println("\nVeículo de PASSEIO - Imprime TODOS os veículos");
                     System.out.println("=================================================");
-                    for (int i = 0; i < vetVeiculoPasseio.length; i++) {
-                        if (vetVeiculoPasseio[i] != null) {
-                            imprimeVeiculoPasseio(vetVeiculoPasseio[i], i);
+                    for (int i = 0; i < bdveiculos.getVetVeiculoPasseio().length; i++) {
+                        if (bdveiculos.getVetVeiculoPasseio()[i] != null) {
+                            bdveiculos.imprimeVeiculoPasseio(bdveiculos.getVetVeiculoPasseio()[i], i);
                         } else {
                             leitura.entDados("\nSem mais veículos de PASSEIO para imprimir - press <ENTER>");
+                        }
+                    }
+                    System.out.println("=================================================");
+                    break;
+                
+                case 4:
+                    System.out.println("\nVeículo de CARGA - Imprime TODOS os veículos");
+                    System.out.println("=================================================");
+                    for (int i = 0; i < bdveiculos.getVetVeiculoCarga().length; i++) {
+                        if (bdveiculos.getVetVeiculoCarga()[i] != null) {
+                            bdveiculos.imprimeVeiculoCarga(bdveiculos.getVetVeiculoCarga()[i], i);
+                        } else {
+                            leitura.entDados("\nSem mais veículos de CARGA para imprimir - press <ENTER>");
                         }
                     }
                     System.out.println("=================================================");
@@ -119,24 +129,6 @@ public class Teste {
                     break;
             }
         }
-    }
-    
-    public static int achaVagoPasseio() {
-        for (int i = 0; i < vetVeiculoPasseio.length; i++) {
-            if (vetVeiculoPasseio[i] == null) {
-                return i;
-            }
-        }
-        return -1;
-    }
-    
-    public static int achaVagoCarga() {
-        for (int i = 0; i < vetVeiculoCarga.length; i++) {
-            if (vetVeiculoCarga[i] == null) {
-                return i;
-            }
-        }
-        return -1;
     }
     
     public static Passeio cadastraVeiculoPasseio(Passeio passeio) {
@@ -170,20 +162,6 @@ public class Teste {
         carga.getMotor().setPotencia(Integer.parseInt(leitura.entDados("Potência do motor.........:")));
         carga.getMotor().setQtdPist(Integer.parseInt(leitura.entDados("Qtdade de pistão...........:")));
         return carga;
-    }
-
-    public static void imprimeVeiculoPasseio(Passeio veiculoPasseio, int i) {
-        System.out.println("\nO veículo de PASSEIO armazenado no endereço.......:" + i +" (vetor do vetVeiculoPasseio)");
-        System.out.println("Cor......................: " + veiculoPasseio.getCor());
-        System.out.println("Marca....................: " + veiculoPasseio.getMarca());
-        System.out.println("Placa....................: " + veiculoPasseio.getPlaca());
-        System.out.println("Qtdade de rodas..........: " + veiculoPasseio.getQtdRodas());
-        System.out.println("Veloc. Máx...............: " + veiculoPasseio.getVelocMax());
-        System.out.println("Qtdade de passageiros....: " + veiculoPasseio.getQtdPassageiros());
-        System.out.println("Potência do motor........: " + veiculoPasseio.getMotor().getPotencia());
-        System.out.println("Qtdade de pistão.........: " + veiculoPasseio.getMotor().getQtdPist());
-        System.out.println("Qtdade passag. + qtdade rodas...: " + veiculoPasseio.calcular());
-        
     }
 
 }
