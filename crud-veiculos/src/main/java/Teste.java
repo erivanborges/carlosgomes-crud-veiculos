@@ -1,3 +1,7 @@
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -140,7 +144,11 @@ public class Teste {
         passeio.setModelo(leitura.entDados("Modelo.......:"));
         passeio.setPlaca(leitura.entDados("Placa.........:"));
         passeio.setQtdRodas(Integer.parseInt(leitura.entDados("Qtdade de rodas.........:")));
-        passeio.setVelocMax(Float.parseFloat(leitura.entDados("Veloc. Máxima..........:")));
+        try {
+            passeio.setVelocMax(Float.parseFloat(leitura.entDados("Veloc. Máxima..........:")));
+        } catch (VelocException ex) {
+            ex.impVelocEx();
+        }
         passeio.setQtdPassageiros(Integer.parseInt(leitura.entDados("Qtdade de passageiros.........:")));
         passeio.getMotor().setPotencia(Integer.parseInt(leitura.entDados("Potência do motor........:")));
         passeio.getMotor().setQtdPist(Integer.parseInt(leitura.entDados("Qtdade de pistão...........:")));
@@ -156,7 +164,11 @@ public class Teste {
         carga.setModelo(leitura.entDados("Modelo.......:"));
         carga.setPlaca(leitura.entDados("Placa.........:"));
         carga.setQtdRodas(Integer.parseInt(leitura.entDados("Qtdade de rodas.........:")));
-        carga.setVelocMax(Float.parseFloat(leitura.entDados("Veloc. Máx.........:")));
+        try {
+            carga.setVelocMax(Float.parseFloat(leitura.entDados("Veloc. Máx.........:")));
+        } catch (VelocException ex) {
+            ex.impVelocEx();
+        }
         carga.setCargaMax(Integer.parseInt(leitura.entDados("Carga Máx.........:")));
         carga.setTara(Integer.parseInt(leitura.entDados("Tara.........:")));
         carga.getMotor().setPotencia(Integer.parseInt(leitura.entDados("Potência do motor.........:")));

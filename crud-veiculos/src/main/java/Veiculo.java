@@ -105,8 +105,12 @@ public abstract class Veiculo {
     /**
      * @param velocMax the velocMax to set
      */
-    public void setVelocMax(float velocMax) {
-        this.velocMax = velocMax;
+    public void setVelocMax(float velocMax) throws VelocException {
+        if (velocMax >= 80 && velocMax <= 120) {
+            this.velocMax = velocMax;
+        } else {
+            throw new VelocException();
+        }  
     }
 
     /**
