@@ -123,6 +123,58 @@ public class Teste {
                     }
                     System.out.println("=================================================");
                     break;
+                
+                case 5:
+                    System.out.println("\n Consulta veículo pela PLACA - Veiculo PASSEIO");
+                    System.out.println("===================================================");
+                    
+                    veiculoPasseio = new Passeio();
+                    
+                    boolean existVeicPasseio = false;
+                    
+                    String placaVeicPasseio = leitura.entDados("\nInforme a placa a ser pesquisada?");
+                    
+                    for (int i = 0; i < bdveiculos.getVetVeiculoPasseio().length; i++) {
+                        if (bdveiculos.getVetVeiculoPasseio()[i] != null) {
+                            if (bdveiculos.getVetVeiculoPasseio()[i].getPlaca().equalsIgnoreCase(placaVeicPasseio)) {
+                                existVeicPasseio = true;
+                                bdveiculos.imprimeVeiculoPasseio(bdveiculos.getVetVeiculoPasseio()[i], i);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (!existVeicPasseio) {
+                        System.out.println("\n\t\t\t\t\t NÃO existe veíclo de "
+                               + "PASSEIO com essa PLACA *" + placaVeicPasseio + "*");
+                    }
+                    break;
+                
+                case 6:
+                    System.out.println("\n Consulta veículo pela PLACA - Veiculo PASSEIO");
+                    System.out.println("===================================================");
+                    
+                    veiculoCarga = new Carga();
+                    
+                    boolean existVeicCarga = false;
+                    
+                    String placaVeicCarga = leitura.entDados("\nInforme a placa a ser pesquisada?");
+                    
+                    for (int i = 0; i < bdveiculos.getVetVeiculoCarga().length; i++) {
+                        if (bdveiculos.getVetVeiculoCarga()[i] != null) {
+                            if (bdveiculos.getVetVeiculoCarga()[i].getPlaca().equalsIgnoreCase(placaVeicCarga)) {
+                                existVeicCarga = true;
+                                bdveiculos.imprimeVeiculoCarga(bdveiculos.getVetVeiculoCarga()[i], i);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (!existVeicCarga) {
+                        System.out.println("\n\t\t\t\t\t NÃO existe veíclo de "
+                               + "CARGA com essa PLACA *" + placaVeicCarga + "*");
+                    }
+                    break;
                     
                 case 7:
                     continuar = false;  

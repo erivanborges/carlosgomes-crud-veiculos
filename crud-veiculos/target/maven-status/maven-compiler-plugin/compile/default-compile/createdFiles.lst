@@ -1,4 +1,5 @@
 VelocException.class
+VeicExistException.class
 Leitura.class
 Veiculo.class
 BDVeiculos.class

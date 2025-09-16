@@ -95,4 +95,26 @@ public class BDVeiculos {
         System.out.println("Tara * Carga Máx...: " + veiculoCarga.calcular());  
     }
     
+    public boolean verifPasseioExist(Passeio passeio) throws VeicExistException {
+        for (int i = 0; i < this.getVetVeiculoPasseio().length; i++) {
+            if (this.getVetVeiculoPasseio()[i] != null) {
+                if (this.getVetVeiculoPasseio()[1].getPlaca().equalsIgnoreCase(passeio.getPlaca())) {
+                    throw new VeicExistException();
+                }
+            }
+        }
+        return true;
+    }
+    
+    public boolean verifCargaExist(Carga carga) throws VeicExistException {
+        for (int i = 0; i < this.getVetVeiculoCarga().length; i++) {
+            if (this.getVetVeiculoCarga()[i] != null) {
+                if (this.getVetVeiculoCarga()[i].getPlaca().equalsIgnoreCase(carga.getPlaca())) {
+                    throw new VeicExistException();
+                }
+            }
+        }
+        return true;
+    }
+    
 }
