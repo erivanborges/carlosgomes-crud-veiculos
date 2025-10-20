@@ -36,64 +36,58 @@ public class Teste {
             System.out.println("\n\t (6) Imprimir o veículo de CARGA pela placa");
             System.out.println("\n\t (7) Sair do Sistema");
             
-            //try {
+            try {
                 opcao = Integer.parseInt(leitura.entDados("\n\t Escolha uma opção"));
-            //} catch (NumberFormatException e) {
-            //    System.out.println("Deve ser um número inteiro - Press <ENTER>");
-            //    leitura.entDados(" ");
-            //}
+            } catch (NumberFormatException e) {
+                System.out.println("Deve ser um número inteiro - Press <ENTER>");
+                leitura.entDados(" ");
+            }
             
             switch (opcao) {
                 case 1:
-                    for (int i = bdveiculos.achaVagoPasseio(); i < bdveiculos.getVetVeiculoPasseio().length; i++) {
-                        if (i == -1) {
-                            leitura.entDados("\nVetor de PASSEIO está cheio! press <ENTER>");
+                    boolean sairPasseio = false;
+                    while (!sairPasseio) {
+                        veiculoPasseio = new Passeio();
+                        veiculoPasseio = cadastraVeiculoPasseio(veiculoPasseio);
+                        
+                        try {
+                            if (bdveiculos.verifPasseioExist(veiculoPasseio)) {
+                                bdveiculos.getListaVeiculoPasseio().add(veiculoPasseio);
+                            }
+                        } catch (VeicExistException ex) {
+                            ex.impVeicExistEx();
                             break;
                         }
                         
-                        veiculoPasseio = new Passeio();
-                        bdveiculos.getVetVeiculoPasseio()[i] = cadastraVeiculoPasseio(veiculoPasseio);
-                        
-                        leitura.entDados("\nVeículo de PASSEIO armazenado na posição " 
-                                + i + " do vetor - press <ENTER>");
-                        
-                        String respPasseio = leitura.entDados("\nDeseja cadastrar outro "
-                                + "veículo de PASSEIO? <s/n>");
+                        String respPasseio = leitura.entDados("\nDeseja cadastrar"
+                                + " outro veículo de PASSEIO? <s/n>");
                         
                         if (respPasseio.equalsIgnoreCase("n")) {
-                            break;
-                        }
-                        
-                        if (bdveiculos.achaVagoPasseio() == -1) {
-                            leitura.entDados("\nVetor de PASSEIO está cheio! press <ENTER>");
-                            break;
+                            sairPasseio = true;
                         }
                     }
                     break;
                     
                 case 2:
-                    for (int i = bdveiculos.achaVagoCarga(); i < bdveiculos.getVetVeiculoPasseio().length; i++) {
-                        if (i == -1) {
-                            leitura.entDados("\nVetor de CARGA está cheio! press <ENTER>");
+                    boolean sairCarga = false;
+                    while (!sairCarga) {
+                        veiculoCarga = new Carga();
+                        veiculoCarga = cadastraVeiculoCarga(veiculoCarga);
+                        
+                        try {
+                            if (bdveiculos.verifCargaExist(veiculoCarga)) {
+                                bdveiculos.getListaVeiculoCarga().add(veiculoCarga);
+                            }
+                        } catch (VeicExistException ex) {
+                            ex.impVeicExistEx();
                             break;
                         }
                         
-                        veiculoCarga = new Carga();
-                        bdveiculos.getVetVeiculoCarga()[i] = cadastraVeiculoCarga(veiculoCarga); 
-                        
-                        leitura.entDados("\nVeículo de CARGA armazenado na posição " 
-                                + i + " do vetor - press <ENTER>");
-                        
-                        String respCarga = leitura.entDados("\nDeseja cadastrar outro "
-                                + "veículo de CARGA? <s/n>");
+                        String respCarga = leitura.entDados("\nDeseja cadastrar"
+                                + " outro veículo de CARGA? <s/n>");
                         
                         if (respCarga.equalsIgnoreCase("n")) {
-                            break;
-                        }
-                        
-                        if (bdveiculos.achaVagoCarga() == -1) {
-                            leitura.entDados("\nVetor de CARGA está cheio! press <ENTER>");
-                            break;
+                            sairCarga = true;
                         }
                     }
                     break;
@@ -101,26 +95,28 @@ public class Teste {
                 case 3:
                     System.out.println("\nVeículo de PASSEIO - Imprime TODOS os veículos");
                     System.out.println("=================================================");
-                    for (int i = 0; i < bdveiculos.getVetVeiculoPasseio().length; i++) {
-                        if (bdveiculos.getVetVeiculoPasseio()[i] != null) {
-                            bdveiculos.imprimeVeiculoPasseio(bdveiculos.getVetVeiculoPasseio()[i], i);
-                        } else {
-                            leitura.entDados("\nSem mais veículos de PASSEIO para imprimir - press <ENTER>");
+                    for (int i = 0; i < bdveiculos.getListaVeiculoPasseio().size(); i++) {
+                        if (bdveiculos.getListaVeiculoPasseio().get(i) != null) {
+                            bdveiculos.imprimeVeiculoPasseio(bdveiculos.getListaVeiculoPasseio().get(i), i);
                         }
                     }
+                    
+                    leitura.entDados("\nSem mais veículos de PASSEIO para imprimir - press <ENTER>");
+                    
                     System.out.println("=================================================");
                     break;
                 
                 case 4:
                     System.out.println("\nVeículo de CARGA - Imprime TODOS os veículos");
                     System.out.println("=================================================");
-                    for (int i = 0; i < bdveiculos.getVetVeiculoCarga().length; i++) {
-                        if (bdveiculos.getVetVeiculoCarga()[i] != null) {
-                            bdveiculos.imprimeVeiculoCarga(bdveiculos.getVetVeiculoCarga()[i], i);
-                        } else {
-                            leitura.entDados("\nSem mais veículos de CARGA para imprimir - press <ENTER>");
-                        }
+                    for (int i = 0; i < bdveiculos.getListaVeiculoCarga().size(); i++) {
+                        if (bdveiculos.getListaVeiculoCarga().get(i) != null) {
+                            bdveiculos.imprimeVeiculoCarga(bdveiculos.getListaVeiculoCarga().get(i), i);
+                        } 
                     }
+                    
+                    leitura.entDados("\nSem mais veículos de CARGA para imprimir - press <ENTER>");
+                    
                     System.out.println("=================================================");
                     break;
                 
@@ -134,11 +130,11 @@ public class Teste {
                     
                     String placaVeicPasseio = leitura.entDados("\nInforme a placa a ser pesquisada?");
                     
-                    for (int i = 0; i < bdveiculos.getVetVeiculoPasseio().length; i++) {
-                        if (bdveiculos.getVetVeiculoPasseio()[i] != null) {
-                            if (bdveiculos.getVetVeiculoPasseio()[i].getPlaca().equalsIgnoreCase(placaVeicPasseio)) {
+                    for (int i = 0; i < bdveiculos.getListaVeiculoPasseio().size(); i++) {
+                        if (bdveiculos.getListaVeiculoPasseio().get(i) != null) {
+                            if (bdveiculos.getListaVeiculoPasseio().get(i).getPlaca().equalsIgnoreCase(placaVeicPasseio)) {
                                 existVeicPasseio = true;
-                                bdveiculos.imprimeVeiculoPasseio(bdveiculos.getVetVeiculoPasseio()[i], i);
+                                bdveiculos.imprimeVeiculoPasseio(bdveiculos.getListaVeiculoPasseio().get(i), i);
                                 break;
                             }
                         }
@@ -160,11 +156,11 @@ public class Teste {
                     
                     String placaVeicCarga = leitura.entDados("\nInforme a placa a ser pesquisada?");
                     
-                    for (int i = 0; i < bdveiculos.getVetVeiculoCarga().length; i++) {
-                        if (bdveiculos.getVetVeiculoCarga()[i] != null) {
-                            if (bdveiculos.getVetVeiculoCarga()[i].getPlaca().equalsIgnoreCase(placaVeicCarga)) {
+                    for (int i = 0; i < bdveiculos.getListaVeiculoCarga().size(); i++) {
+                        if (bdveiculos.getListaVeiculoCarga().get(i) != null) {
+                            if (bdveiculos.getListaVeiculoCarga().get(i).getPlaca().equalsIgnoreCase(placaVeicCarga)) {
                                 existVeicCarga = true;
-                                bdveiculos.imprimeVeiculoCarga(bdveiculos.getVetVeiculoCarga()[i], i);
+                                bdveiculos.imprimeVeiculoCarga(bdveiculos.getListaVeiculoCarga().get(i), i);
                                 break;
                             }
                         }
