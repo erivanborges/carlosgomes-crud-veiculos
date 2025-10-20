@@ -1,3 +1,7 @@
+
+import java.util.List;
+import java.util.ArrayList;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -9,63 +13,45 @@
  */
 public class BDVeiculos {
     
-    private Passeio[] vetVeiculoPasseio;
-    private Carga[] vetVeiculoCarga;
+    private List<Passeio> listaVeiculoPasseio;
+    private List<Carga> listaVeiculoCarga;
 
     public BDVeiculos() {
-        this.vetVeiculoPasseio = new Passeio[5];
-        this.vetVeiculoCarga = new Carga[5];
+        this.listaVeiculoPasseio = new ArrayList<Passeio>();
+        this.listaVeiculoCarga = new ArrayList<Carga>();
     }
     
-    public BDVeiculos(Passeio[] vetVeiculoPasseio, Carga[] vetVeiculoCarga) {
-        this.vetVeiculoPasseio = vetVeiculoPasseio;
-        this.vetVeiculoCarga = vetVeiculoCarga;
+    public BDVeiculos(List<Passeio> listaVeiculoPasseio, List<Carga> listaVeiculoCarga) {
+        this.listaVeiculoPasseio = listaVeiculoPasseio;
+        this.listaVeiculoCarga = listaVeiculoCarga;
+    }
+
+     /**
+     * @return the listaVeiculoPasseio
+     */
+    public List<Passeio> getListaVeiculoPasseio() {
+        return listaVeiculoPasseio;
     }
 
     /**
-     * @return the vetVeiculoPasseio
+     * @param listaVeiculoPasseio the listaVeiculoPasseio to set
      */
-    public Passeio[] getVetVeiculoPasseio() {
-        return vetVeiculoPasseio;
+    public void setListaVeiculoPasseio(List<Passeio> listaVeiculoPasseio) {
+        this.listaVeiculoPasseio = listaVeiculoPasseio;
     }
 
     /**
-     * @param aVetVeiculoPasseio the vetVeiculoPasseio to set
+     * @return the listaVeiculoCarga
      */
-    public void setVetVeiculoPasseio(Passeio[] aVetVeiculoPasseio) {
-        vetVeiculoPasseio = aVetVeiculoPasseio;
+    public List<Carga> getListaVeiculoCarga() {
+        return listaVeiculoCarga;
     }
 
     /**
-     * @return the vetVeiculoCarga
+     * @param listaVeiculoCarga the listaVeiculoCarga to set
      */
-    public Carga[] getVetVeiculoCarga() {
-        return vetVeiculoCarga;
-    }
-
-    /**
-     * @param aVetVeiculoCarga the vetVeiculoCarga to set
-     */
-    public void setVetVeiculoCarga(Carga[] aVetVeiculoCarga) {
-        vetVeiculoCarga = aVetVeiculoCarga;
-    }
-    
-    public int achaVagoPasseio() {
-        for (int i = 0; i < vetVeiculoPasseio.length; i++) {
-            if (vetVeiculoPasseio[i] == null) {
-                return i;
-            }
-        }
-        return -1;
-    }
-    
-    public int achaVagoCarga() {
-        for (int i = 0; i < vetVeiculoCarga.length; i++) {
-            if (vetVeiculoCarga[i] == null) {
-                return i;
-            }
-        }
-        return -1;
+    public void setListaVeiculoCarga(List<Carga> listaVeiculoCarga) {
+        this.listaVeiculoCarga = listaVeiculoCarga;
     }
     
     public void imprimeVeiculoPasseio(Passeio veiculoPasseio, int i) {
@@ -96,9 +82,9 @@ public class BDVeiculos {
     }
     
     public boolean verifPasseioExist(Passeio passeio) throws VeicExistException {
-        for (int i = 0; i < this.getVetVeiculoPasseio().length; i++) {
-            if (this.getVetVeiculoPasseio()[i] != null) {
-                if (this.getVetVeiculoPasseio()[1].getPlaca().equalsIgnoreCase(passeio.getPlaca())) {
+        for (int i = 0; i < this.getListaVeiculoPasseio().size(); i++) {
+            if (this.getListaVeiculoPasseio().get(i) != null) {
+                if (this.getListaVeiculoPasseio().get(i).getPlaca().equalsIgnoreCase(passeio.getPlaca())) {
                     throw new VeicExistException();
                 }
             }
@@ -107,9 +93,9 @@ public class BDVeiculos {
     }
     
     public boolean verifCargaExist(Carga carga) throws VeicExistException {
-        for (int i = 0; i < this.getVetVeiculoCarga().length; i++) {
-            if (this.getVetVeiculoCarga()[i] != null) {
-                if (this.getVetVeiculoCarga()[i].getPlaca().equalsIgnoreCase(carga.getPlaca())) {
+        for (int i = 0; i < this.getListaVeiculoCarga().size(); i++) {
+            if (this.getListaVeiculoCarga().get(i) != null) {
+                if (this.getListaVeiculoCarga().get(i).getPlaca().equalsIgnoreCase(carga.getPlaca())) {
                     throw new VeicExistException();
                 }
             }
