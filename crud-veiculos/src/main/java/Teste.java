@@ -34,7 +34,9 @@ public class Teste {
             System.out.println("\n\t (4) Imprimir todos os veíclos de CARGA");
             System.out.println("\n\t (5) Imprimir o veículo de PASSEIO pela placa");
             System.out.println("\n\t (6) Imprimir o veículo de CARGA pela placa");
-            System.out.println("\n\t (7) Sair do Sistema");
+            System.out.println("\n\t (7) Excluir veículo de PASSEIO pela placa");
+            System.out.println("\n\t (8) Excluir veículo de CARGA pela placa");
+            System.out.println("\n\t (9) Sair do Sistema");
             
             try {
                 opcao = Integer.parseInt(leitura.entDados("\n\t Escolha uma opção"));
@@ -173,6 +175,66 @@ public class Teste {
                     break;
                     
                 case 7:
+                    System.out.println("\n Excluir veículo pela PLACA - Veiculo PASSEIO");
+                    System.out.println("===================================================");
+                    
+                    veiculoPasseio = new Passeio();
+                    
+                    boolean existPlacaVeiculoPasseioExcluir = false;
+                    
+                    String placaVeicPasseioExcluir = leitura.entDados("\nInforme a placa a ser excluida:");
+                    
+                    veiculoPasseio.setPlaca(placaVeicPasseioExcluir);
+                    
+                    for (int i = 0; i < bdveiculos.getListaVeiculoPasseio().size(); i++) {
+                        if (bdveiculos.getListaVeiculoPasseio().get(i) != null) {
+                            if (bdveiculos.getListaVeiculoPasseio().get(i).getPlaca().equalsIgnoreCase(veiculoPasseio.getPlaca())) {
+                                bdveiculos.getListaVeiculoPasseio().remove(i);
+                                existPlacaVeiculoPasseioExcluir = true;
+                                System.out.println("\n\n\t\t\t================= O veículo de PASSEIO com a PLACA * "+ veiculoPasseio.getPlaca() + "* foi excluido com sucesso!");
+                                System.out.println(" ");
+                            }
+                        }
+                    }
+                    
+                    if (!existPlacaVeiculoPasseioExcluir) {
+                        System.out.println("\n\n\t\t\t=========== Não existe veículo de PASSEIO com está PLACA *" + veiculoPasseio.getPlaca() + "*");
+                        System.out.println(" ");
+                    }
+                    
+                    break;
+                    
+                case 8:
+                    System.out.println("\n Excluir veículo pela PLACA - Veiculo CARGA");
+                    System.out.println("===================================================");
+                    
+                    veiculoCarga = new Carga();
+                    
+                    boolean existPlacaVeiculoCargaExcluir = false;
+                    
+                    String placaVeicCargaExcluir = leitura.entDados("\nInforme a placa a ser excluida:");
+                    
+                    veiculoCarga.setPlaca(placaVeicCargaExcluir);
+                    
+                    for (int i = 0; i < bdveiculos.getListaVeiculoCarga().size(); i++) {
+                        if (bdveiculos.getListaVeiculoCarga().get(i) != null) {
+                            if (bdveiculos.getListaVeiculoCarga().get(i).getPlaca().equalsIgnoreCase(veiculoCarga.getPlaca())) {
+                                bdveiculos.getListaVeiculoCarga().remove(i);
+                                existPlacaVeiculoCargaExcluir = true;
+                                System.out.println("\n\n\t\t\t================= O veículo de CARGA com a PLACA * "+ veiculoCarga.getPlaca() + "* foi excluido com sucesso!");
+                                System.out.println(" ");
+                            }
+                        }
+                    }
+                    
+                    if (!existPlacaVeiculoCargaExcluir) {
+                        System.out.println("\n\n\t\t\t=========== Não existe veículo de CARGA com está PLACA *" + veiculoCarga.getPlaca() + "*");
+                        System.out.println(" ");
+                    }
+                    
+                    break;
+                    
+                case 9:
                     continuar = false;  
                     break;
                 default:
